@@ -1,5 +1,5 @@
 Ball ball;
-Ball ball2;
+
 
 void setup() {
     size(512, 512);
