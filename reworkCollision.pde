@@ -1,14 +1,20 @@
 Ball ball;
+Ball[] balls = new Ball[30];
 
 
 void setup() {
     size(512, 512);
-    ball = new Ball(20);
+    for (int i = 0; i < balls.length; ++i) {
+        balls[i] = new Ball(random(10, 100));
+    }
 }
 
 void draw() {
-    background(200);
-    ball.update();
-    ball.checkBoarderCollision();
-    ball.display();
+    background(0);
+    for (int i = 0; i < balls.length; ++i) {
+        balls[i].update();
+        balls[i].checkBoarderCollision();
+        balls[i].display();    
+    }
+    
 }
