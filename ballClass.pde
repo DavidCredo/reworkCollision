@@ -1,18 +1,23 @@
 public class Ball  {
 
-    int diameter;
+    float diameter;
     PVector location;
     PVector velocity;
+    PVector acceleration;
+    float vMax;
 
-    public Ball (int r) {
+    public Ball (float r) {
         this.diameter = r;
-        this.location = new PVector(random(width), random(height));
-        this.velocity = new PVector(random(-2, 2), random(-2, 2));
+        this.location = new PVector(width/2, height/2);
+        this.velocity = new PVector(0,0);
+        this.acceleration = new PVector(random(-1, 1), random(-1, 1));
+        this.vMax = 10;
     }
 
     void update() {
+        velocity.add(acceleration);
         location.add(velocity);
-        velocity.limit(10);
+        velocity.limit(vMax);
     }
 
     void display() {
