@@ -7,19 +7,21 @@ public class Ball  {
     float vMax;
     color paint;
     float rotationAngle;
+    boolean isColliding;
 
     public Ball (float r) {
         this.diameter = r;
         this.location = new PVector(width/2, height/2);
-        this.velocity = new PVector(0,0);
+        this.velocity =  new PVector(random(-1, 2), random(-1, 2));
         this.acceleration = new PVector(random(-1, 2), random(-1, 2));
         this.vMax = 10;
         this.paint = color(random(255), random(255), random(255));
         this.rotationAngle = 0;
+        this.isColliding = false;
     }
 
     void update() {
-        velocity.add(acceleration);
+       // velocity.add(acceleration);
         location.add(velocity);
         velocity.limit(vMax);
     }
@@ -46,14 +48,21 @@ public class Ball  {
     // }
 
     void checkBoarderCollision() {
-        if (location.x >= width - diameter || location.x < diameter) {
-            velocity.x *= -1.4;
+        if (location.x > width - diameter/2 || location.x < diameter/2) {
+            velocity.x *= -1;
             this.paint= color(random(255), random(255), random(255));
         } 
-        if (location.y >= height - diameter || location.y < diameter) {
-            velocity.y *= -1.4;
+        if (location.y > height - diameter/2 || location.y < diameter/2) {
+            velocity.y *= -1;
             this.paint= color(random(255), random(255), random(255));
         }
+    }
+    
+    boolean detectObjectCollisions(Ball a, Ball b) {
+        if (dist(a.location.x, a.location.y, b.location.x, b.location.y) < (a.diameter / 2) + (b.diameter / 2)) {
+            return true;
+        }
+        return false;
     }
 
 }
