@@ -57,12 +57,5 @@ public class Ball  {
             this.paint= color(random(255), random(255), random(255));
         }
     }
-    
-    boolean detectObjectCollisions(Ball a, Ball b) {
-        if (dist(a.location.x, a.location.y, b.location.x, b.location.y) < (a.diameter / 2) + (b.diameter / 2)) {
-            return true;
-        }
-        return false;
-    }
 
 }
