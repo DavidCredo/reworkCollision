@@ -10,14 +10,14 @@ void setup() {
 
 void draw() {
     background(0);
-    for (int i = 0; i < balls.size(); ++i) {
+    for (int i = 0; i < balls.size(); i++) {
         balls.get(i).update();
         handleCollision();
         balls.get(i).checkBoarderCollision();
-        balls.get(i).collideWithObject(); 
+        //balls.get(i).collideWithObject(); 
     }
     
-    for (int j = 0; j < balls.size(); ++j) {
+    for (int j = 0; j < balls.size(); j++) {
           balls.get(j).display();
     }
 }
@@ -27,7 +27,7 @@ void draw() {
         Ball ball2;
 
         //Resetting Collision state 
-        for (int i = 0; i < balls.size(); ++i) {
+        for (int i = 0; i < balls.size(); i++) {
             balls.get(i).setIsColliding(false);
         }
 
@@ -41,6 +41,17 @@ void draw() {
                     ball2.setIsColliding(true);
                     
                 }
+
+                PVector collisionDirectionVector = PVector.sub(ball2.location, ball1.location);
+                collisionDirectionVector.normalize();
+                PVector relativeVelocity = PVector.sub(ball1.velocity, ball2.velocity);
+                float collisionSpeed = PVector.dot(relativeVelocity, collisionDirectionVector);
+
+                if(collisionSpeed < 0) break;
+                ball1.velocity.x -= (collisionSpeed * collisionDirectionVector.x);
+                ball1.velocity.y -= (collisionSpeed * collisionDirectionVector.y);
+                ball2.velocity.x += (collisionSpeed * collisionDirectionVector.x);
+                ball2.velocity.y += (collisionSpeed * collisionDirectionVector.y);
             }
         }
     }
