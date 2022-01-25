@@ -25,12 +25,12 @@ public class Ball  {
     }
 
     void display() {
-        rectMode(CENTER);
+        ellipseMode(CENTER);
         noStroke();
         fill(paint);            
         // pushMatrix();
         // rotateObj();
-        rect(location.x, location.y, diameter, diameter);
+        ellipse(location.x, location.y, diameter, diameter);
         // popMatrix();
     }
 
