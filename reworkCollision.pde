@@ -1,20 +1,20 @@
 Ball ball;
-Ball[] balls = new Ball[30];
+ArrayList<Ball> balls = new ArrayList<Ball>(); 
 
 
 void setup() {
     size(512, 512);
-    for (int i = 0; i < balls.length; ++i) {
-        balls[i] = new Ball(random(10, 100));
+    for (int i = 0; i < 20; ++i) {
+        balls.add(new Ball(random(10, 100)));
     }
 }
 
 void draw() {
     background(0);
-    for (int i = 0; i < balls.length; ++i) {
-        balls[i].update();
-        balls[i].checkBoarderCollision();
-        balls[i].display();    
+    for (int i = 0; i < balls.size(); ++i) {
+        balls.get(i).update();
+        balls.get(i).checkBoarderCollision();
+        balls.get(i).display();    
     }
     
 }
