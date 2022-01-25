@@ -11,7 +11,7 @@ public class Ball  {
 
     public Ball (float r) {
         this.diameter = r;
-        this.location = new PVector(width/2, height/2);
+        this.location = new PVector(random(diameter, width - diameter), random(diameter, height - diameter));
         this.velocity =  new PVector(random(-1, 2), random(-1, 2));
         this.acceleration = new PVector(random(-1, 2), random(-1, 2));
         this.vMax = 10;
@@ -20,8 +20,11 @@ public class Ball  {
         this.isColliding = false;
     }
 
-    void update() {
-       // velocity.add(acceleration);
+    void setIsColliding(boolean b) {
+        this.isColliding = b;
+    }
+
+    void update() {       
         location.add(velocity);
         velocity.limit(vMax);
     }
@@ -30,22 +33,8 @@ public class Ball  {
         ellipseMode(CENTER);
         noStroke();
         fill(paint);            
-        // pushMatrix();
-        // rotateObj();
-        ellipse(location.x, location.y, diameter, diameter);
-        // popMatrix();
+        ellipse(location.x, location.y, diameter, diameter);        
     }
-
-    // void rotateObj() {      
-    //     translate(location.x, location.y);
-    //     rotate(rotationAngle);
-    //     for(float i =0; i <= 2; i++) {
-    //         rotationAngle += 0.01;
-    //         if (rotationAngle >= 2) {
-    //             rotationAngle = 0;
-    //         }
-    //     } 
-    // }
 
     void checkBoarderCollision() {
         if (location.x > width - diameter/2 || location.x < diameter/2) {
@@ -58,4 +47,9 @@ public class Ball  {
         }
     }
 
+    void collideWithObject() {
+        if(isColliding) {
+          velocity.mult(-1);
+        } 
+    }
 }
