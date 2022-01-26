@@ -14,7 +14,7 @@ public class Ball  {
         this.location = new PVector(random(diameter, width - diameter), random(diameter, height - diameter));
         this.velocity =  new PVector(random(-1, 2), random(-1, 2));
         this.acceleration = new PVector(random(-1, 2), random(-1, 2));
-        this.vMax = 10;
+        this.vMax = 3;
         this.paint = color(random(255), random(255), random(255));
         this.rotationAngle = 0;
         this.isColliding = false;
@@ -49,7 +49,7 @@ public class Ball  {
 
     void collideWithObject() {
         if(isColliding) {
-          velocity.mult(-1);
+          velocity.mult(-1.5);
         } 
     }
 }

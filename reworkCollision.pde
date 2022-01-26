@@ -3,8 +3,8 @@ ArrayList<Ball> balls = new ArrayList<Ball>();
 
 void setup() {
     size(512, 512);
-    for (int i = 0; i < 10; ++i) {
-        balls.add(new Ball(30));
+    for (int i = 0; i < 500; ++i) {
+        balls.add(new Ball(2));
     }
 }
 
@@ -14,7 +14,7 @@ void draw() {
         balls.get(i).update();
         handleCollision();
         balls.get(i).checkBoarderCollision();
-        //balls.get(i).collideWithObject(); 
+        balls.get(i).collideWithObject(); 
     }
     
     for (int j = 0; j < balls.size(); j++) {
@@ -28,7 +28,7 @@ void draw() {
 
         //Resetting Collision state 
         for (int i = 0; i < balls.size(); i++) {
-            balls.get(i).setIsColliding(false);
+            balls.get(i).isColliding = false;
         }
 
         for (int i = 0; i < balls.size(); i++) {
@@ -37,21 +37,11 @@ void draw() {
                 ball2 = balls.get(j);
 
                 if(detectCollision(ball1,ball2)) {
-                    ball1.setIsColliding(true);
-                    ball2.setIsColliding(true);
+                    ball1.isColliding = true;
+                    ball2.isColliding = true;
                     
                 }
-
-                PVector collisionDirectionVector = PVector.sub(ball2.location, ball1.location);
-                collisionDirectionVector.normalize();
-                PVector relativeVelocity = PVector.sub(ball1.velocity, ball2.velocity);
-                float collisionSpeed = PVector.dot(relativeVelocity, collisionDirectionVector);
-
-                if(collisionSpeed < 0) break;
-                ball1.velocity.x -= (collisionSpeed * collisionDirectionVector.x);
-                ball1.velocity.y -= (collisionSpeed * collisionDirectionVector.y);
-                ball2.velocity.x += (collisionSpeed * collisionDirectionVector.x);
-                ball2.velocity.y += (collisionSpeed * collisionDirectionVector.y);
+              
             }
         }
     }
